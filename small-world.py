@@ -52,3 +52,26 @@ def set_node_community(G, communities):
     g = low + span * (((i + g_off) * 5) % n) / (n - 1)
     b = low + span * (((i + b_off) * 7) % n) / (n - 1)
     return (r, g, b)
+
+set_node_community(G, communities)
+set_edge_community(G)
+
+# Set community color for nodes
+node_color = [get_color(G.nodes[v]['community']) for v in G.nodes]
+
+# Set community color for internal edges
+external = [(v, w) for v, w in G.edges if G.edges[v, w]['community'] == 0]
+internal = [(v, w) for v, w in G.edges if G.edges[v, w]['community'] > 0]
+internal_color = [get_color(G.edges[e]['community']) for e in internal]
+
+pos = nx.spring_layout(G, k=0.2)
+#nx.draw_networkx(
+#  G, pos=pos, node_size=0, edge_color="#333333", alpha=0.5, with_labels=False)
+
+nx.draw_networkx(
+   G, pos=pos, node_size=0, edgelist=external, edge_color="#333333",
+   alpha=0.6, with_labels=False)
+# Draw internal edges
+nx.draw_networkx(
+   G, pos=pos, node_size=0, edgelist=internal, edge_color=internal_color,
+   alpha=0.4, with_labels=False)
