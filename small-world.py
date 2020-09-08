@@ -32,3 +32,13 @@ def set_node_community(G, communities):
         for v in v_c:
             # Add 1 to save 0 for external edges
             G.nodes[v]['community'] = c + 1
+            
+            def set_edge_community(G):
+    '''Find internal edges and add their community to their attributes'''
+    for v, w, in G.edges:
+        if G.nodes[v]['community'] == G.nodes[w]['community']:
+            # Internal edge, mark with community
+            G.edges[v, w]['community'] = G.nodes[v]['community']
+        else:
+            # External edge, mark as 0
+            G.edges[v, w]['community'] = 0
