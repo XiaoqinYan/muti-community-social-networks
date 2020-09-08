@@ -23,3 +23,12 @@ or i in range(l):#add random edges to make the entire society connected
     u=rnd.randint(0, n-1)
     v=rnd.randint(n, 2*n-1)
     G.add_edge(u,v)
+
+    communities = sorted(greedy_modularity_communities(G), key=len, reverse=True)
+
+def set_node_community(G, communities):
+    '''Add community to node attributes'''
+    for c, v_c in enumerate(communities):
+        for v in v_c:
+            # Add 1 to save 0 for external edges
+            G.nodes[v]['community'] = c + 1
