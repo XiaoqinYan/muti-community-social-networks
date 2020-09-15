@@ -23,6 +23,12 @@ or i in range(l):#add random edges to make the entire society connected
     u=rnd.randint(0, n-1)
     v=rnd.randint(n, 2*n-1)
     G.add_edge(u,v)
+    
+    for t in range(1,451):
+    RandomSample = [G.nodes()]
+    removenode=rnd.sample(RandomSample, 1)
+    G.remove_nodes_from(removenode)
+    
 
     communities = sorted(greedy_modularity_communities(G), key=len, reverse=True)
 
