@@ -18,3 +18,21 @@ c= sorted(greedy_modularity_communities(G), key=len, reverse=True)
           G.add_edge(new_node_id, connect_nodes[i])
              
       
+node_list=[]
+      for j in range(0, join_community):
+          node_list.extend(list(c[j]))
+      for j in range (join_community+1, len(c)):
+          node_list.extend(list(c[j]))        
+    
+      degree_list=[]
+      #for i in range(0, len(G)-len(c[join_community])):  
+      for i in range(0, len(node_list)):          
+         degree_list.append(G.degree[node_list[i]])
+        
+      choose_array=[]
+      #for i in range(0, len(G)-len(c[join_community])):    
+      for i in range(0, len(node_list)):       
+          repeat_index_array = [node_list[i]] * degree_list[i]
+          choose_array += repeat_index_array
+             
+      
